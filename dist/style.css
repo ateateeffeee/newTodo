@@ -1,0 +1,39 @@
+#header {
+    background-color: blue;
+    height: 10px;
+    width: 500px;
+}
+
+#projectsList {
+    outline-style: double;
+    outline-color: black;
+    outline-width: 2px;
+}
+
+#content {
+    width: 500px;
+    height: 500px;
+    background-color: red;
+}
+
+#expandedItem {
+    background-color: yellow;
+    /*
+    make this a box and give it a z order thing or whatever.
+    put it infront of everything else
+    */
+}
+
+.projectNames {
+    /*border-style: solid;
+    border-width: 5px;
+    border-color: black;*/
+
+    
+}
+
+.listItems {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
