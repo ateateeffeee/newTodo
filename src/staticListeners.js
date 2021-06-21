@@ -7,6 +7,7 @@ const staticListeners = (() => {
         console.log('This is the staticListeners init');
         this.addTaskListener();
         this.addNewProject();
+        this.defaultProjectButton();
     }
 
     const addTaskListener = function() {
@@ -23,10 +24,18 @@ const staticListeners = (() => {
         document.getElementById('addNewProject').addEventListener("click", dom.createNewProjectTab);
     }
 
+    const defaultProjectButton = function() {
+        document.getElementById('defaultButton').addEventListener("click", function(){
+            dom.removeProjOutlines();
+            dom.outlineSelectedProj('defaultButton');
+        });
+    }
+
     return {
         init,
         addTaskListener,
         addNewProject,
+        defaultProjectButton,
     }
 
 })();

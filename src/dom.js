@@ -80,11 +80,67 @@ const dom = (() => {
     }
 
     const createProjectList = function(projectArray) {
-        projects = projectArray;
-        //console.log(projects[0]['title']);
+        //console.log(projectArray[0]['title']);
 
         //Work on this more when working with saved data
         //THIS IS GOOD
+
+    }
+
+    const outlineSelectedProj = function(id) {
+        let projectButton = document.getElementById(id);
+
+        projectButton.style['border-style'] = 'solid';
+        projectButton.style['border-color'] = 'black';
+        projectButton.style['border-width'] = '5px';
+    }
+
+    const removeProjOutlines = function() {
+        //default project
+        let defaultProj = document.getElementById('defaultButton');
+        defaultProj.style['border-style'] = '';
+        defaultProj.style['border-color'] = '';
+        defaultProj.style['border-width'] = '';
+
+        let projectCounter = document.getElementsByClassName('projectNames');
+        
+        for (let i = 1; i < projectCounter.length; i++) {
+
+            let projectButton = document.getElementById('projectButton' + i);
+
+            projectButton.style['border-style'] = '';
+            projectButton.style['border-color'] = '';
+            projectButton.style['border-width'] = '';
+
+
+        }
+        
+       console.log(projectCounter.length);
+    }
+
+    const deleteProject = function() {
+        //while variable.style.outline is FALSE, go through everything
+        //check for default first and break iteration there if it is true
+        let i = 0;
+        let projectCounter = document.getElementsByClassName('projectNames');
+
+        for (let i = 1; i < projectCounter.length; i++) {
+
+            let projectButton = document.getElementById('projectButton' + i);
+
+            if (projectButton.style['border-style'] === 'solid') {
+                projectButton.remove();
+
+            } else {
+                //Nothing happens
+            }
+
+
+        }
+        //let project = document.getElementById('defaultButton');
+        //project needs 
+            //project equals default and it has outline, break loop
+            //make default project value be the default project button
 
     }
 
@@ -126,6 +182,8 @@ const dom = (() => {
         let container = document.getElementById('content');
 
         //Counts the number of todo items
+        //LOOK HERE. DO THIS SAME THING FOR THE LOOPING OF THE
+        //BUTTON OUTLINES. WE'RE REMOVING BUTTON OUTLINES RN
         let itemCounter = document.getElementsByClassName('listItems');
 
         console.log(itemCounter.length);
@@ -145,6 +203,7 @@ const dom = (() => {
         newTaskDiv.className = 'listItems';
 
         let titleElem = document.createTextNode(title);
+        //Text nodes don't have id's or classnames...
         titleElem.className = 'itemTitles';
 
         let dateElem = document.createTextNode(dueDate);
@@ -160,6 +219,38 @@ const dom = (() => {
 
         //array identifier needs to be a variable
         //use classname counter 
+    }
+
+    const updateTask = function(projectArray, idNumber) {
+        //LEFT OFF HERE
+        //Update the dom task
+        //Move over values and remove current item
+        //Give it the same id number IMPORTANT
+
+        //Get list item
+        let item = document.getElementById('listItem' + idNumber);
+        item.innerHTML = '';
+
+        //Get updated values
+        let title = projectArray[idNumber]['title'];
+        let description = projectArray[idNumber]['description'];
+        let dueDate = projectArray[idNumber]['dueDate'];
+        let priority = projectArray[idNumber]['priority'];
+
+        //Create elements
+        let titleElem = document.createTextNode(title);
+        let descElem = document.createTextNode(description);
+        let dateElem = document.createTextNode(dueDate);
+        let priElem = document.createTextNode(priority);
+
+
+        //Append new values
+        item.appendChild(titleElem);
+        item.appendChild(descElem);
+        item.appendChild(dateElem);
+        item.appendChild(priElem);
+
+        //Create
     }
 
     const createProjectsContainer = function() {
@@ -179,6 +270,10 @@ const dom = (() => {
         addNewProject.innerHTML = 'Add new project';
         addNewProject.id = 'addNewProject';
 
+        let deleteProject = document.createElement("button");
+        deleteProject.innerHTML = 'Delete project';
+        deleteProject.id = 'deleteProject';
+
         //Add logic that gives last clicked button a black outline
         //Or changes the color w/e
 
@@ -192,7 +287,11 @@ const dom = (() => {
         container.appendChild(projectsLabel);
         container.appendChild(defaultButton);
         container.appendChild(addNewProject);
+        container.appendChild(deleteProject);
         document.getElementById('content').appendChild(container);
+
+        //Outline default project button
+        dom.outlineSelectedProj(defaultButton.id);
     }
 
     const createNewProjectTab = function() {
@@ -331,7 +430,7 @@ const dom = (() => {
         //Save button
         let saveButton = document.createElement('button');
         saveButton.innerHTML = 'Save changes';
-        saveButton.id = 'saveChanges';
+        saveButton.id = 'saveChanges' + targetIdNumber;
         saveButton.className = 'buttons';
 
         //Possible add a close button?
@@ -361,7 +460,11 @@ const dom = (() => {
         createAddTaskDiv,
         removeAddTask,
         addNewTask,
+        updateTask,
         createProjectList,
+        outlineSelectedProj,
+        removeProjOutlines,
+        deleteProject,
         createNewTaskDiv,
         removeNewTaskDiv,
         createProjectsContainer,

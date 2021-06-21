@@ -40,22 +40,41 @@ dynamicListeners.init();
     - SOLVED: put all logic into new "logic.js" module
 
     Features to add:
-    - outline the active project outline or color, w/e
     
+    -tasks
     - save tasks to dom after clicking save. Put an if statement in the
     event listener for the save button. ex: if element has a border,
     it goes to the projectName that is in that button
+    - delete tasks
+    - add project to list of things you can edit. 
+    - add scroll wheel for "urgent/not urgent"
+        - maybe make urgent ones red? i dunno
 
+
+    -Project buttons
+    - when clicking project button, only display tasks in that
+    project
+
+
+    DONE LIST
+    - add edit button to expanded items div DONE
+        - add edit functionality DONE
+        - make value of input boxes the same as current value DONE
+        - make this also change the real array DONE
+            - create an "updateArray" function in logic.js DONE
+        - make it change the dom oops too late DONE
+    - outline the active project outline or color, w/e DONE
     - delete projects
         - make another button (delete project) pop up whenever
         a project that IS NOT id = defaultButton is selected/
         outlined/colored
+        - if you delete a project that has tasks, those tasks go
+        to "default"
 
-    - add edit button to expanded items div DONE
-        - add edit functionality DONE
-        - make value of input boxes the same as current value DONE
-        - make this also change the real array
-            - create an "updateArray" function in logic.js
 
+    BUGS
+    - deleting projects out of order can generate the same id for two
+        -recreate by making two new projs, deleting first, then making
+        another
 
     */

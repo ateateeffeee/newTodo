@@ -88,6 +88,13 @@ const todoList = (() => {
         //This function is only for getting the array to other modules
         return projectArray
     }
+
+    const updateArray = function(title, description, dueDate, priority, index) {
+        projectArray[index]['title'] = title;
+        projectArray[index]['description'] = description;
+        projectArray[index]['dueDate'] = dueDate;
+        projectArray[index]['priority'] = priority;
+    }
     /*
     const createDefaultProject = function() {
         projectArray.push(defaultProject);
@@ -100,6 +107,7 @@ const todoList = (() => {
         createNewItem,
         getUserInput,
         giveArray,
+        updateArray,
         //createDefaultProject,
         // createNewProject,
         // start here tomorrow
