@@ -28,6 +28,15 @@ const dynamicListeners = (() => {
                 //"add new project". remember to remove input
                 //and save button
                 dom.createNewProject();
+                dom.removeProjOutlines();
+                dom.outlineNewProj();
+                //find way to make it automatically outline new proj
+                /*
+                this is brazy
+                can't pass targetid because the target is "saveButton"
+                make an "outlineNewProj" function
+                How does it know which one is the new proj?
+                */
             }
 
             //This selects a new project

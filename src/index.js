@@ -75,6 +75,23 @@ dynamicListeners.init();
     BUGS
     - deleting projects out of order can generate the same id for two
         -recreate by making two new projs, deleting first, then making
-        another
+        another FIXED
+        -FIX: create a "reorder projects" function that deletes all projects
+            and saves them back in order
+            - trigger this one "delete project" click
+
+            - projectNames.length -1
+            loop through with "projectbutton" + i
+            if "projectButton" + 1 is blank, that is the id
+            that gets assigned
+            else is the existing code
+
+            - check the "createNewProject" and the "outlineSel
+            ectedProject" dynamic ones won't outline anymore
+            it's "removeProjectOutlines" that's breaking it
+            FIX TODAY
+            -works but still duping ids. work with "createNewProj"
+            -FIXED forgot to put "break" after if statement
+            
 
     */

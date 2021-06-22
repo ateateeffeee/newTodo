@@ -95,7 +95,23 @@ const dom = (() => {
         projectButton.style['border-width'] = '5px';
     }
 
+    const outlineNewProj = function() {
+        //let newProj = document.querySelector('#projectsList a:nth-child(-1)');
+
+        let buttonCount = document.getElementById('projectsList').childNodes.length;
+        let newProj = document.getElementById('projectsList').childNodes[buttonCount - 3];
+
+        //console.log(newProj.id);
+        //console.log(newProj.item(1));
+        dom.outlineSelectedProj(newProj.id);
+
+        //LEFT OFF HERE
+        //FIGURE OUT WAY TO GET THIRD TO LAST ELEMENT IN PROJECTSLIST
+        //THAT WILL ALWAYS BE THE LAST ADDED PROJECT
+    }
+
     const removeProjOutlines = function() {
+        console.log('removing outlines');
         //default project
         let defaultProj = document.getElementById('defaultButton');
         defaultProj.style['border-style'] = '';
@@ -103,7 +119,13 @@ const dom = (() => {
         defaultProj.style['border-width'] = '';
 
         let projectCounter = document.getElementsByClassName('projectNames');
-        
+        console.log('still removing');
+        //FIX THIS
+        //THIS IS WHERE IT'S BREAKING
+        //STILL BREAKS WHEN REMOVING FIRST NEW PROJ
+        //fix: add an if statment that handles stuff if projbut
+        //is null. maybe having a null.style breaks it
+        //START HERE TOMORROW
         for (let i = 1; i < projectCounter.length; i++) {
 
             let projectButton = document.getElementById('projectButton' + i);
@@ -116,6 +138,7 @@ const dom = (() => {
         }
         
        console.log(projectCounter.length);
+       console.log('removed em');
     }
 
     const deleteProject = function() {
@@ -324,14 +347,27 @@ const dom = (() => {
     const createNewProject = function() {
         //This counts the projects using the class name
         let projCounter = document.getElementsByClassName('projectNames');
-        console.log(projCounter.length);
+        //console.log(projCounter.length);
 
         let addNewProjectButton = document.getElementById('addNewProject');
         
         let newProject = document.createElement("button");
         newProject.innerHTML = document.getElementById('newProjectBox').value;
-        newProject.id = 'projectButton' + projCounter.length;
+        //newProject.id = 'projectButton' + projCounter.length;
         newProject.className = 'projectNames';
+
+        for (let i = 1; i < projCounter.length + 1; i++) {
+            let currentButton = document.getElementById('projectButton' + i);
+            console.log('Current button: ' + currentButton + "i: " + i);
+
+            if (!currentButton) {
+                console.log('current button doesnt exist');
+                newProject.id = 'projectButton' + i;
+                break;
+            } else {
+                newProject.id = 'projectButton' + projCounter.length;
+            }
+        }
 
         //Refer to library project when accessing dynamic elements
 
@@ -463,6 +499,7 @@ const dom = (() => {
         updateTask,
         createProjectList,
         outlineSelectedProj,
+        outlineNewProj,
         removeProjOutlines,
         deleteProject,
         createNewTaskDiv,
