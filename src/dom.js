@@ -49,23 +49,42 @@ const dom = (() => {
         dateInput.placeholder = 'Due Date';
         //This should make a calendar pop up or at least
         //force date format
-
+        /*
+        //Make this an option wheel instead
         let priorityInput = document.createElement("input");
         priorityInput.className = 'textBox';
         priorityInput.id = 'priorityBox';
         priorityInput.placeholder = 'Priority';
+        */
+
+        let priorityInput = document.createElement("select");
+        priorityInput.id = 'priorityScroll';
+        priorityInput.className = 'textBox';
+
+        let urgentOption = document.createElement('option');
+        urgentOption.innerHTML = 'Urgent';
+        urgentOption.id = 'urgentOption';
+
+        let nonurgentOption = document.createElement('option');
+        nonurgentOption.innerHTML = 'Nonurgent';
+        nonurgentOption.id = 'nonurgentOption';
+
 
         let saveButton = document.createElement("button");
         saveButton.className = 'buttons';
         saveButton.id = 'saveButton';
         saveButton.innerHTML = 'Save';
         
-
         //Append div and text boxes
         div.appendChild(titleInput);
         div.appendChild(descripInput);
         div.appendChild(dateInput);
         div.appendChild(priorityInput);
+
+        priorityInput.appendChild(urgentOption);
+        priorityInput.appendChild(nonurgentOption);
+        div.appendChild(priorityInput);
+
         div.appendChild(saveButton);
 
         document.getElementById('content').appendChild(div);
@@ -221,18 +240,17 @@ const dom = (() => {
         let container = document.getElementById('content');
 
         //Counts the number of todo items
-        //LOOK HERE. DO THIS SAME THING FOR THE LOOPING OF THE
-        //BUTTON OUTLINES. WE'RE REMOVING BUTTON OUTLINES RN
         let itemCounter = document.getElementsByClassName('listItems');
 
         console.log(itemCounter.length);
         //Get info from blanks
         let title = project[itemCounter.length]['title'];
-        //let description = document.getElementById('descripBox').value;
         let dueDate = project[itemCounter.length]['dueDate'];
+        let priority = project[itemCounter.length]['priority'];
+
         //let priority = document.getElementById('priorityBox');
         //let projectName = 'Default';
-        
+
         //After getting this working, make default projectName depend on
         //which proj button is clicked. User can still make it
         //something else
@@ -260,6 +278,14 @@ const dom = (() => {
 
         container.appendChild(newTaskDiv);
         console.log(itemCounter.length);
+
+        //This makes the div red if labeled, "urgent"
+        if (priority === 'Urgent') {
+            console.log('make it green');
+            newTaskDiv.style['background-color'] = 'red';
+        } else {
+            //Nothing
+        }
 
         //array identifier needs to be a variable
         //use classname counter 
@@ -300,6 +326,13 @@ const dom = (() => {
     const deleteTask = function(taskId) {
         let task = document.getElementById('listItem' + taskId);
         task.remove();
+    }
+
+    const loadProjectTasks = function(projectName) {
+        //Trigger this when a project button is clicked
+        //Loop through projectArray and display everything that matches
+        //the innerHTML of project name
+        //LEFT OFF HERE EZPZ
     }
 
     const createProjectsContainer = function() {
@@ -523,6 +556,7 @@ const dom = (() => {
         addNewTask,
         updateTask,
         deleteTask,
+        loadProjectTasks,
         createProjectList,
         outlineSelectedProj,
         outlineNewProj,

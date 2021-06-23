@@ -70,7 +70,7 @@ const todoList = (() => {
         let title = document.getElementById('titleBox').value;
         let description = document.getElementById('descripBox').value;
         let dueDate = document.getElementById('dateBox').value;
-        let priority = document.getElementById('priorityBox').value;
+        let priority = document.getElementById('priorityScroll').value;
         let projectName = 'Default';
 
         //This finds the outlined project tab to determine projectName

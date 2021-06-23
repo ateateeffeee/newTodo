@@ -40,16 +40,18 @@ dynamicListeners.init();
     - SOLVED: put all logic into new "logic.js" module
 
     Features to add:
-    
-    -tasks
-        - add scroll wheel for "urgent/not urgent"
-        - maybe make urgent ones red? i dunno
-
-
     -Project buttons
     - when clicking project button, only display tasks in that
     project
-    - when deleting project, automatically outline "default" after
+
+    - save data with localStorage
+
+    - load data on startup
+
+    - use date-fns library for date
+
+    - format task divs
+        - maybe put tasks in separate divs to format easier
 
 
 
@@ -67,12 +69,15 @@ dynamicListeners.init();
         outlined/colored
         - if you delete a project that has tasks, those tasks go
         to "default"
+        - when deleting project, automatically outline "default" after
     - tasks
         - save tasks to dom after clicking save. Put an if statement in the
         event listener for the save button. ex: if element has a border,
         it goes to the projectName that is in that button
         - delete tasks
-        - add project to list of things you can edit. 
+        - add project to list of things you can edit.
+        - add scroll wheel for "urgent/not urgent"
+        - maybe make urgent ones red? i dunno
 
 
     BUGS
