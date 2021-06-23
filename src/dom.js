@@ -122,17 +122,25 @@ const dom = (() => {
         console.log('still removing');
         //FIX THIS
         //THIS IS WHERE IT'S BREAKING
-        //STILL BREAKS WHEN REMOVING FIRST NEW PROJ
-        //fix: add an if statment that handles stuff if projbut
-        //is null. maybe having a null.style breaks it
+        /*
+        -if projCount.length does not account for skipped numbers
+        - last button(s) are being left out because i++ doesn't go that high
+        need a different way to iterate/scan all projects
+        */
         //START HERE TOMORROW
-        for (let i = 1; i < projectCounter.length; i++) {
+        for (let i = 1; i < projectCounter.length + 1; i++) {
 
             let projectButton = document.getElementById('projectButton' + i);
 
-            projectButton.style['border-style'] = '';
-            projectButton.style['border-color'] = '';
-            projectButton.style['border-width'] = '';
+            if (!projectButton) {
+                //nothing happens
+            } else {
+                projectButton.style['border-style'] = '';
+                projectButton.style['border-color'] = '';
+                projectButton.style['border-width'] = '';
+            }
+
+            
 
 
         }
@@ -144,20 +152,28 @@ const dom = (() => {
     const deleteProject = function() {
         //while variable.style.outline is FALSE, go through everything
         //check for default first and break iteration there if it is true
-        let i = 0;
+        //let i = 0;
         let projectCounter = document.getElementsByClassName('projectNames');
-
-        for (let i = 1; i < projectCounter.length; i++) {
+        console.log('inside delete project func');
+        console.log(projectCounter.length);
+        //Search for outlined button
+        //condition has to be high to account for low length/high id number
+        for (let i = 0; i < projectCounter.length * 10; i++) {
 
             let projectButton = document.getElementById('projectButton' + i);
-
-            if (projectButton.style['border-style'] === 'solid') {
-                projectButton.remove();
-
-            } else {
+            if (!projectButton) {
                 //Nothing happens
+            } else {
+                console.log('i is: ' + i);
+                if (projectButton.style['border-style'] === 'solid') {
+                    projectButton.remove();
+                    break;
+    
+                } else {
+                    //Nothing happens
+                }
             }
-
+            
 
         }
         //let project = document.getElementById('defaultButton');
@@ -232,10 +248,15 @@ const dom = (() => {
         let dateElem = document.createTextNode(dueDate);
         dateElem.className = 'itemDates';
 
+        let deleteTask = document.createElement('button');
+        deleteTask.innerHTML = 'Delete';
+        deleteTask.id = 'deleteTask' + itemCounter.length;
+        deleteTask.className = 'buttons';
 
         //append everything else to task here
         newTaskDiv.appendChild(titleElem);
         newTaskDiv.appendChild(dateElem);
+        newTaskDiv.appendChild(deleteTask);
 
         container.appendChild(newTaskDiv);
         console.log(itemCounter.length);
@@ -274,6 +295,11 @@ const dom = (() => {
         item.appendChild(priElem);
 
         //Create
+    }
+
+    const deleteTask = function(taskId) {
+        let task = document.getElementById('listItem' + taskId);
+        task.remove();
     }
 
     const createProjectsContainer = function() {
@@ -449,7 +475,6 @@ const dom = (() => {
         */
 
         //Input elements
-        //LEFT OFF HERE. MAKE THEM HOLD THE OLD VALUES. VERY COOL
         let inputTitle = document.createElement('input');
         inputTitle.value = projectArray[targetIdNumber]['title'];
         inputTitle.id = 'editedTitle';
@@ -469,7 +494,7 @@ const dom = (() => {
         saveButton.id = 'saveChanges' + targetIdNumber;
         saveButton.className = 'buttons';
 
-        //Possible add a close button?
+        //Close button
         let closeButton = document.createElement('button');
         closeButton.innerHTML = 'Close';
         closeButton.id = 'closeExpandedItem';
@@ -497,6 +522,7 @@ const dom = (() => {
         removeAddTask,
         addNewTask,
         updateTask,
+        deleteTask,
         createProjectList,
         outlineSelectedProj,
         outlineNewProj,

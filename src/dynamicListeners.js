@@ -55,6 +55,8 @@ const dynamicListeners = (() => {
                 } else {
                     //run the delete project function
                     dom.deleteProject();
+                    //outline default project
+                    dom.outlineSelectedProj('defaultButton');
                 }
             }
 
@@ -66,6 +68,23 @@ const dynamicListeners = (() => {
                 console.log(targetIdNumber);
                 //Expands selected list item
                 dom.expandListItem(projectArray, targetIdNumber);
+            }
+
+            //This deletes the selected task
+            if (targetId.includes('deleteTask')) {
+                //Get array from logic.js
+                //let projectArray = todoList.giveArray();
+
+                //Delete task from array
+                todoList.deleteArrayIndex(targetIdNumber);
+
+                //Delete task from dom
+                dom.deleteTask(targetIdNumber);
+
+                //Display new array just to be sure
+                let projectArray = todoList.giveArray();
+                console.log(projectArray);
+                
             }
 
             //This allows you to edit an expanded item

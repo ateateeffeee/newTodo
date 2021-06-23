@@ -42,18 +42,15 @@ dynamicListeners.init();
     Features to add:
     
     -tasks
-    - save tasks to dom after clicking save. Put an if statement in the
-    event listener for the save button. ex: if element has a border,
-    it goes to the projectName that is in that button
-    - delete tasks
-    - add project to list of things you can edit. 
-    - add scroll wheel for "urgent/not urgent"
+        - add scroll wheel for "urgent/not urgent"
         - maybe make urgent ones red? i dunno
 
 
     -Project buttons
     - when clicking project button, only display tasks in that
     project
+    - when deleting project, automatically outline "default" after
+
 
 
     DONE LIST
@@ -70,6 +67,12 @@ dynamicListeners.init();
         outlined/colored
         - if you delete a project that has tasks, those tasks go
         to "default"
+    - tasks
+        - save tasks to dom after clicking save. Put an if statement in the
+        event listener for the save button. ex: if element has a border,
+        it goes to the projectName that is in that button
+        - delete tasks
+        - add project to list of things you can edit. 
 
 
     BUGS
@@ -93,5 +96,8 @@ dynamicListeners.init();
             -works but still duping ids. work with "createNewProj"
             -FIXED forgot to put "break" after if statement
             
+    - Can outline multiple projects if you delete projname1 FIXED
+        - FIX: loop that checks for outline has .length * 10 for condition now
+
 
     */

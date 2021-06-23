@@ -72,6 +72,29 @@ const todoList = (() => {
         let dueDate = document.getElementById('dateBox').value;
         let priority = document.getElementById('priorityBox').value;
         let projectName = 'Default';
+
+        //This finds the outlined project tab to determine projectName
+        let projectCounter = document.getElementsByClassName('projectNames');
+        //Search for outlined button
+        //condition has to be high to account for low length/high id number
+        for (let i = 0; i < projectCounter.length * 10; i++) {
+
+            let projectButton = document.getElementById('projectButton' + i);
+            if (!projectButton) {
+                //Nothing happens
+            } else {
+                console.log('i is: ' + i);
+                if (projectButton.style['border-style'] === 'solid') {
+                    projectName = projectButton.innerHTML;
+                    break;
+    
+                } else {
+                    //Nothing happens
+                }
+            }
+            
+
+        }
         
 
         //Insert if statement that says: "If project name
@@ -95,6 +118,11 @@ const todoList = (() => {
         projectArray[index]['dueDate'] = dueDate;
         projectArray[index]['priority'] = priority;
     }
+
+    const deleteArrayIndex = function(index) {
+         projectArray.splice(index, 1);
+        
+    }
     /*
     const createDefaultProject = function() {
         projectArray.push(defaultProject);
@@ -108,6 +136,7 @@ const todoList = (() => {
         getUserInput,
         giveArray,
         updateArray,
+        deleteArrayIndex,
         //createDefaultProject,
         // createNewProject,
         // start here tomorrow
