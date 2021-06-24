@@ -41,8 +41,13 @@ const dynamicListeners = (() => {
 
             //This selects a new project
             if (targetId.includes('projectButton')) {
+                let projectButton = document.getElementById('projectButton' + targetIdNumber);
+                let projectArray = todoList.giveArray();
+                console.log(projectButton.innerHTML);
                 dom.removeProjOutlines();
                 dom.outlineSelectedProj(targetId);
+                dom.clearTasks();
+                dom.loadProjectTasks(projectArray, projectButton.innerHTML)
             }
 
             //This allows you to delete projects

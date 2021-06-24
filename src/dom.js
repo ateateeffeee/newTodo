@@ -281,7 +281,7 @@ const dom = (() => {
 
         //This makes the div red if labeled, "urgent"
         if (priority === 'Urgent') {
-            console.log('make it green');
+            console.log('make it red');
             newTaskDiv.style['background-color'] = 'red';
         } else {
             //Nothing
@@ -328,11 +328,80 @@ const dom = (() => {
         task.remove();
     }
 
-    const loadProjectTasks = function(projectName) {
+    const clearTasks = function() {
+        let tasks = document.getElementsByClassName('listItems');
+        
+        while(tasks[0]) {
+            tasks[0].parentNode.removeChild(tasks[0]);
+        }
+    }
+
+    const loadProjectTasks = function(projectArray, projectName) {
         //Trigger this when a project button is clicked
         //Loop through projectArray and display everything that matches
         //the innerHTML of project name
         //LEFT OFF HERE EZPZ
+        console.log('loading tasks');
+
+        let container = document.getElementById('content');
+
+        //console.log(projectArray.length + 'poop');
+        if (!projectArray) {
+            //Array is blank. Nothing happens
+        } else {
+            //Put a loop in here that loops through array and
+            //Only displays the ones that contain "projectName"
+            for (let i = 0; i < projectArray.length; i++) {
+                if (projectArray[i]['projectName'] === projectName) {
+                    //add task to dom
+                    //PASTE HERE
+                    //Get values
+                    let title = projectArray[i]['title'];
+                    let dueDate = projectArray[i]['dueDate'];
+                    let priority = projectArray[i]['priority'];
+
+                    //Create element
+                    let newTaskDiv = document.createElement("div");
+                    newTaskDiv.id = 'listItem' + i;
+                    newTaskDiv.className = 'listItems';
+
+                    let titleElem = document.createTextNode(title);
+                    //Text nodes don't have id's or classnames...
+                    titleElem.className = 'itemTitles';
+
+                    let dateElem = document.createTextNode(dueDate);
+                    dateElem.className = 'itemDates';
+
+                    let deleteTask = document.createElement('button');
+                    deleteTask.innerHTML = 'Delete';
+                    deleteTask.id = 'deleteTask' + i;
+                    deleteTask.className = 'buttons';
+
+                    //append everything else to task here
+                    newTaskDiv.appendChild(titleElem);
+                    newTaskDiv.appendChild(dateElem);
+                    newTaskDiv.appendChild(deleteTask);
+
+                    container.appendChild(newTaskDiv);
+
+                     //This makes the div red if labeled, "urgent"
+                    if (priority === 'Urgent') {
+                        console.log('make it red');
+                        newTaskDiv.style['background-color'] = 'red';
+                    } else {
+                        //Nothing
+                    }
+
+
+                    //TO HERE
+                } else {
+                    //nothing happens
+                }
+            }
+        }
+
+        //test this with "default" first. It's under statis listeners
+
     }
 
     const createProjectsContainer = function() {
@@ -556,6 +625,7 @@ const dom = (() => {
         addNewTask,
         updateTask,
         deleteTask,
+        clearTasks,
         loadProjectTasks,
         createProjectList,
         outlineSelectedProj,

@@ -40,18 +40,18 @@ dynamicListeners.init();
     - SOLVED: put all logic into new "logic.js" module
 
     Features to add:
-    -Project buttons
-    - when clicking project button, only display tasks in that
-    project
+    - when deleting project, delete associated tasks also
 
     - save data with localStorage
-
-    - load data on startup
+        - load data on startup
 
     - use date-fns library for date
 
     - format task divs
         - maybe put tasks in separate divs to format easier
+        - or search how to put more space between text nodes
+
+    - change edit task so it has drop down bar for urgency
 
 
 
@@ -78,6 +78,9 @@ dynamicListeners.init();
         - add project to list of things you can edit.
         - add scroll wheel for "urgent/not urgent"
         - maybe make urgent ones red? i dunno
+    -Project buttons
+        - when clicking project button, only display tasks in that
+        project
 
 
     BUGS

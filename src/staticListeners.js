@@ -1,5 +1,6 @@
 //Loads dom module
 const dom = require('./dom.js');
+const todoList = require('./logic.js');
 
 const staticListeners = (() => { 
 
@@ -28,6 +29,17 @@ const staticListeners = (() => {
         document.getElementById('defaultButton').addEventListener("click", function(){
             dom.removeProjOutlines();
             dom.outlineSelectedProj('defaultButton');
+            dom.clearTasks();
+
+            let projectArray = todoList.giveArray();
+            //include if to catch empty array
+            if (!projectArray) {
+                //nothing happens
+            } else {
+                dom.loadProjectTasks(projectArray, 'Default');
+            }
+           
+            
         });
     }
 
