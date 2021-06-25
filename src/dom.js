@@ -233,8 +233,10 @@ const dom = (() => {
     }
 
     const addNewTask = function(projectArray) {
+        console.log('inside addNewTask');
         //Gets project array from logic.js
         let project = projectArray;
+        console.log(project.length);
 
         //Locates container
         let container = document.getElementById('content');
@@ -242,11 +244,22 @@ const dom = (() => {
         //Counts the number of todo items
         let itemCounter = document.getElementsByClassName('listItems');
 
-        console.log(itemCounter.length);
+        //console.log(itemCounter.length);
+        //project[n] number was originally controlled by
+            //itemCounter.length
+
+        //Controls project index
+        let i = 0;
+        if (!projectArray) {
+            i = 0;
+        } else {
+            i = project.length - 1;
+        }
+
         //Get info from blanks
-        let title = project[itemCounter.length]['title'];
-        let dueDate = project[itemCounter.length]['dueDate'];
-        let priority = project[itemCounter.length]['priority'];
+        let title = project[i]['title'];
+        let dueDate = project[i]['dueDate'];
+        let priority = project[i]['priority'];
 
         //let priority = document.getElementById('priorityBox');
         //let projectName = 'Default';
@@ -256,28 +269,36 @@ const dom = (() => {
         //something else
         //Create element
         let newTaskDiv = document.createElement("div");
-        newTaskDiv.id = 'listItem' + itemCounter.length;
+        newTaskDiv.id = 'listItem' + i;
         newTaskDiv.className = 'listItems';
 
-        let titleElem = document.createTextNode(title);
-        //Text nodes don't have id's or classnames...
+        let titleElem = document.createElement('div');
+        titleElem.innerHTML = title;
+        titleElem.id = 'taskTitle' + i;
         titleElem.className = 'itemTitles';
 
-        let dateElem = document.createTextNode(dueDate);
+        let dateElem = document.createElement('div');
+        dateElem.innerHTML = dueDate;
+        dateElem.id = 'taskDate' + i;
         dateElem.className = 'itemDates';
 
         let deleteTask = document.createElement('button');
         deleteTask.innerHTML = 'Delete';
-        deleteTask.id = 'deleteTask' + itemCounter.length;
+        deleteTask.id = 'deleteTask' + i;
         deleteTask.className = 'buttons';
+     
+        let expandTask = document.createElement('button');
+        expandTask.innerHTML = 'Expand task';
+        expandTask.id = 'expandTask' + i;
+        expandTask.className = 'buttons';
 
-        //append everything else to task here
         newTaskDiv.appendChild(titleElem);
         newTaskDiv.appendChild(dateElem);
         newTaskDiv.appendChild(deleteTask);
+        newTaskDiv.appendChild(expandTask);
 
         container.appendChild(newTaskDiv);
-        console.log(itemCounter.length);
+        //console.log(itemCounter.length);
 
         //This makes the div red if labeled, "urgent"
         if (priority === 'Urgent') {
@@ -292,11 +313,7 @@ const dom = (() => {
     }
 
     const updateTask = function(projectArray, idNumber) {
-        //LEFT OFF HERE
-        //Update the dom task
-        //Move over values and remove current item
-        //Give it the same id number IMPORTANT
-
+     
         //Get list item
         let item = document.getElementById('listItem' + idNumber);
         item.innerHTML = '';
@@ -320,7 +337,13 @@ const dom = (() => {
         item.appendChild(dateElem);
         item.appendChild(priElem);
 
-        //Create
+        //This makes the div red if labeled, "urgent"
+        if (priority === 'Urgent') {
+            console.log('make it red');
+            item.style['background-color'] = 'red';
+        } else {
+            item.style['background-color'] = '';
+        }
     }
 
     const deleteTask = function(taskId) {
@@ -501,6 +524,7 @@ const dom = (() => {
 
 
         dom.clearNewProjectElements();
+        dom.clearTasks();
  
         addNewProjectButton.before(newProject);
         console.log('button added');
@@ -586,9 +610,13 @@ const dom = (() => {
         let inputDueDate = document.createElement('input');
         inputDueDate.value = projectArray[targetIdNumber]['dueDate'];
         inputDueDate.id = 'editedDate';
-        let inputPriority = document.createElement('input');
+        let inputPriority = document.createElement('select');
         inputPriority.value = projectArray[targetIdNumber]['priority'];
         inputPriority.id = 'editedPriority';
+        let urgentPriority = document.createElement('option');
+        urgentPriority.innerHTML = 'Urgent';
+        let nonurgentPriority = document.createElement('option');
+        nonurgentPriority.innerHTML = 'Nonurgent';
         
         //Save button
         let saveButton = document.createElement('button');
@@ -611,6 +639,9 @@ const dom = (() => {
         expandedItem.appendChild(inputDesc);
         expandedItem.appendChild(inputDueDate);
         expandedItem.appendChild(inputPriority);
+
+        inputPriority.appendChild(urgentPriority);
+        inputPriority.appendChild(nonurgentPriority);
         expandedItem.appendChild(saveButton);
         expandedItem.appendChild(closeButton);
 

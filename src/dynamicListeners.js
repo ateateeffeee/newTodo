@@ -5,7 +5,6 @@ const todoList = require('./logic.js');
 const dynamicListeners = (() => { 
 
     const init = function() {
-        console.log('This is the dynamic listeners init');
         this.eventDelegation();
     }
 
@@ -52,27 +51,62 @@ const dynamicListeners = (() => {
 
             //This allows you to delete projects
             if (targetId === 'deleteProject') {
+                let projectArray = todoList.giveArray();
+                //let projectButton = document.getElementById('projectButton' + targetIdNumber);
                 //Check if default project button is outlined
                 let defaultButton = document.getElementById('defaultButton');
                 if (defaultButton.style['border-style'] === 'solid'){
                     //Nothing happens
                     console.log('"Default" project cannot be deleted.');
                 } else {
+
+                    for (let i = 0; i < projectArray.length; i++) {
+
+                        let projectButton = document.getElementById('projectButton' + i);
+                        if (!projectButton) {
+                            //Nothing happens
+                        } else {
+                            console.log('i is: ' + i);
+                            if (projectButton.style['border-style'] === 'solid') {
+                                //delete tasks from projectArray
+                                todoList.deleteProjectTasks(projectButton.innerHTML);
+                                break;
+                
+                            } else {
+                                //Nothing happens
+                            }
+                        }
+                        
+            
+                    }
+
                     //run the delete project function
                     dom.deleteProject();
+                    //delete tasks from dom
+                    dom.clearTasks();
+
                     //outline default project
                     dom.outlineSelectedProj('defaultButton');
+
+                    //delete project doesn't have a number. set a loop to search
+                    //for outlined button, then set project button to that project
+
                 }
             }
 
             //This expands the selected item
-            if (targetId.includes('listItem')) {
-                //Get array from logic.js
-                let projectArray = todoList.giveArray();
-                //document.getElementById(targetId);
-                console.log(targetIdNumber);
-                //Expands selected list item
-                dom.expandListItem(projectArray, targetIdNumber);
+            if (targetId.includes('expandTask')) {
+                if (document.getElementById('expandedItem')) {
+                    //nothing happens
+                } else {
+                    //Get array from logic.js
+                    let projectArray = todoList.giveArray();
+                    //document.getElementById(targetId);
+                    console.log(targetIdNumber);
+                    //Expands selected list item
+                    dom.expandListItem(projectArray, targetIdNumber);
+                }
+                
             }
 
             //This deletes the selected task
@@ -89,6 +123,14 @@ const dynamicListeners = (() => {
                 //Display new array just to be sure
                 let projectArray = todoList.giveArray();
                 console.log(projectArray);
+
+                //Deletes expanded task divs if any exist
+                let expandedItem = document.getElementById('expandedItem');
+                if (expandedItem) {
+                    expandedItem.remove();
+                } else {
+                    //Nothing happens
+                }
                 
             }
 

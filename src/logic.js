@@ -48,7 +48,8 @@ const todoList = (() => {
 
         //TEST PUSH TO PROJECT ARRAY
         projectArray.push(newItem);
-        console.log(projectArray[0]['projectName']);
+        console.log(projectArray);
+        //console.log(projectArray[0]['projectName']);
 
         //Creates object element
         dom.addNewTask(projectArray);
@@ -120,8 +121,41 @@ const todoList = (() => {
     }
 
     const deleteArrayIndex = function(index) {
+        //THIS MIGHT NEED A REWORK
+        //Gets index from targeIdNumber
+        //TIN is taken from dom. Will not always correspond to
+        //array...
+        //Scan entire array and look for match between array[i]['title'] and
+        //whatever is in title dom element. Delete if there is a match
          projectArray.splice(index, 1);
         
+    }
+
+    const deleteProjectTasks = function(projectName) {
+        console.log(projectArray);
+        //go through each object in array. Delete all of the ones with
+        //selected project name
+
+        //Loop through array
+        //If array['projectName'] === projectName
+            //deleteArrayIndex(i)
+        //display array after to check
+        console.log(projectName);
+        for (let i = projectArray.length; i >= 0; i--) {
+            if (!projectArray[i]) {
+                console.log('nothing is happening');
+            } else if (projectArray[i]['projectName'] === projectName) {
+                projectArray.splice(i, 1);
+                //console.log('LOOPING');
+                //console.log(i + ' ' + projectArray.length);
+                //console.log(projectArray[i]);
+
+            } else {
+                //Nothing happens
+            }
+        }
+        console.log('new array');
+        console.log(projectArray);
     }
     /*
     const createDefaultProject = function() {
@@ -137,6 +171,7 @@ const todoList = (() => {
         giveArray,
         updateArray,
         deleteArrayIndex,
+        deleteProjectTasks,
         //createDefaultProject,
         // createNewProject,
         // start here tomorrow

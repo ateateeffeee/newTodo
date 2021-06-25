@@ -40,7 +40,25 @@ dynamicListeners.init();
     - SOLVED: put all logic into new "logic.js" module
 
     Features to add:
-    - when deleting project, delete associated tasks also
+    - when "reloading" aka clicking away from project and clicking back,
+    projects display correctly. Just need a way to reload it.
+        -recreate this by putting one task in default and two
+        in a custom one. see what happens
+
+
+    - FIX THIS NOW: adding task to a new proj adds old task...
+    example: make a task in default, create new project, add task,
+    task from default shows up... WORKS BUT CHECK AGAIN TOMORROW
+
+    SECOND: deleting projects doesn't reload DO IT
+
+    THIRD: reloading tasks doesn't give "expand task" option
+
+    THIS IS REALLY EASY
+
+    - if existing loops won't work with projects, make loops
+    parse through array and find matches. delete if there is a match
+
 
     - save data with localStorage
         - load data on startup
@@ -51,7 +69,7 @@ dynamicListeners.init();
         - maybe put tasks in separate divs to format easier
         - or search how to put more space between text nodes
 
-    - change edit task so it has drop down bar for urgency
+    
 
 
 
@@ -70,6 +88,7 @@ dynamicListeners.init();
         - if you delete a project that has tasks, those tasks go
         to "default"
         - when deleting project, automatically outline "default" after
+        - when deleting project, delete associated tasks also
     - tasks
         - save tasks to dom after clicking save. Put an if statement in the
         event listener for the save button. ex: if element has a border,
@@ -78,6 +97,8 @@ dynamicListeners.init();
         - add project to list of things you can edit.
         - add scroll wheel for "urgent/not urgent"
         - maybe make urgent ones red? i dunno
+    - edit tasks
+        - change edit task so it has drop down bar for priority
     -Project buttons
         - when clicking project button, only display tasks in that
         project
