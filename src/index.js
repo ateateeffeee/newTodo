@@ -40,6 +40,8 @@ dynamicListeners.init();
     - SOLVED: put all logic into new "logic.js" module
 
     Features to add:
+    - save/load tasks
+    - save/load project tabs
 
     THIS IS REALLY EASY
 

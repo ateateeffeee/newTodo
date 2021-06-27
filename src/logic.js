@@ -1,6 +1,7 @@
 //Loads external modules
 const dom = require('./dom.js');
 
+
 //dynamicListeners loads in index. Which means that when loading in
 //dyanmicListeners, it won't have the index module because it hasn't
 //run yet....
@@ -17,6 +18,8 @@ function todoItem(title, description, dueDate, priority, projectName) {
 
     return todoItem;
 }
+
+localStorage.clear();
 
 //test item
 const testItem = new todoItem('Samurai Black', 'Become black',

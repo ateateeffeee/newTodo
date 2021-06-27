@@ -1,6 +1,7 @@
 //Loads dom module
 const dom = require('./dom.js');
 const todoList = require('./logic.js');
+const storage = require('./storage.js');
 
 const dynamicListeners = (() => { 
 
@@ -17,8 +18,13 @@ const dynamicListeners = (() => {
             if (targetId === 'saveButton') {
                 //run function IN INDEX that takes all info from
                 //form and creates object, puts it into array
+                let projectArray = todoList.giveArray();
+
                 todoList.getUserInput();
                 dom.removeNewTaskDiv();
+                
+                let index = projectArray.length - 1;
+                storage.saveData(projectArray, index);
                 
             }
 
