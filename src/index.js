@@ -40,38 +40,13 @@ dynamicListeners.init();
     - SOLVED: put all logic into new "logic.js" module
 
     Features to add:
-    - when "reloading" aka clicking away from project and clicking back,
-    projects display correctly. Just need a way to reload it.
-        -recreate this by putting one task in default and two
-        in a custom one. see what happens
-
-
-    - FIX THIS NOW: adding task to a new proj adds old task...
-    example: make a task in default, create new project, add task,
-    task from default shows up... WORKS BUT CHECK AGAIN TOMORROW
-
-    SECOND: deleting projects doesn't reload DO IT
-
-    THIRD: reloading tasks doesn't give "expand task" option
 
     THIS IS REALLY EASY
-
-    - if existing loops won't work with projects, make loops
-    parse through array and find matches. delete if there is a match
-
 
     - save data with localStorage
         - load data on startup
 
     - use date-fns library for date
-
-    - format task divs
-        - maybe put tasks in separate divs to format easier
-        - or search how to put more space between text nodes
-
-    
-
-
 
     DONE LIST
     - add edit button to expanded items div DONE
@@ -97,6 +72,12 @@ dynamicListeners.init();
         - add project to list of things you can edit.
         - add scroll wheel for "urgent/not urgent"
         - maybe make urgent ones red? i dunno
+    - expanded tasks
+    -  put expanded elements in separate divs (format better)
+        - remove normal task when displaying it DONE
+        - add "minimize" button that triggers dom.loadProjectTasks() to reset it DONE
+        - when clicking expand while expandedItem already exists, DONE
+        close expanded item DONE
     - edit tasks
         - change edit task so it has drop down bar for priority
     -Project buttons
@@ -127,6 +108,12 @@ dynamicListeners.init();
             
     - Can outline multiple projects if you delete projname1 FIXED
         - FIX: loop that checks for outline has .length * 10 for condition now
+    
+    - Reloading tasks doesn't give "expand task" option FIXED
+
+    - Deleting projects doesn't reload tasks FIXED
+        - FIX: didn't have dom.loadProjectTasks();
+
 
 
     */

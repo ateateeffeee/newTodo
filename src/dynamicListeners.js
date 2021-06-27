@@ -88,25 +88,56 @@ const dynamicListeners = (() => {
                     //outline default project
                     dom.outlineSelectedProj('defaultButton');
 
-                    //delete project doesn't have a number. set a loop to search
-                    //for outlined button, then set project button to that project
-
+                    //load tasks in "default" project
+                    dom.loadProjectTasks(projectArray, 'Default');
                 }
             }
 
             //This expands the selected item
             if (targetId.includes('expandTask')) {
-                if (document.getElementById('expandedItem')) {
+
+                //Get array from logic.js
+                let projectArray = todoList.giveArray();
+                //document.getElementById(targetId);
+                console.log(targetIdNumber);
+                //Expands selected list item
+                dom.expandListItem(projectArray, targetIdNumber);
+                //Delete standard display task
+                dom.deleteTask(targetIdNumber);
+                
+                //if (document.getElementById('expandedItem')) {
                     //nothing happens
-                } else {
+                //} else {
+                    /*
                     //Get array from logic.js
                     let projectArray = todoList.giveArray();
                     //document.getElementById(targetId);
                     console.log(targetIdNumber);
                     //Expands selected list item
                     dom.expandListItem(projectArray, targetIdNumber);
-                }
+                    //Delete standard display task
+                    dom.deleteTask(targetIdNumber);
+                    */
+                //}
                 
+                
+                
+                
+            }
+
+            if (targetId.includes('miniButton')) {
+                //Get array from logic.js
+                let projectArray = todoList.giveArray();
+                let projectName = projectArray[targetIdNumber]['projectName'];
+
+                //Remove expanded item
+                let expandedItem = document.getElementById('expandedItem');
+                expandedItem.remove();
+
+                //Clear tasks
+                dom.clearTasks();
+                //Load tasks
+                dom.loadProjectTasks(projectArray, projectName);
             }
 
             //This deletes the selected task

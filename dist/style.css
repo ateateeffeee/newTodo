@@ -23,8 +23,12 @@
 }
 
 #expandedItem {
-    background-color: yellow;
+    outline-style: double;
+    outline-color: black;
+    outline-width: 2px;
+
     /*
+    background-color: yellow;
     make this a box and give it a z order thing or whatever.
     put it infront of everything else
     */

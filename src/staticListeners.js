@@ -13,7 +13,7 @@ const staticListeners = (() => {
 
     const addTaskListener = function() {
         document.getElementById('addTask').addEventListener("click", function(){
-            if (document.getElementById('newTaskDiv') || document.getElementById('expandedItem')) {
+            if (document.getElementById('newTaskDiv')) {
 
             } else {
                 dom.createNewTaskDiv();

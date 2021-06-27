@@ -87,7 +87,10 @@ const dom = (() => {
 
         div.appendChild(saveButton);
 
-        document.getElementById('content').appendChild(div);
+        let addTaskButton = document.getElementById('addTask');
+
+        //document.getElementById('content').appendChild(div);
+        addTaskButton.after(div);
 
 
     }
@@ -313,10 +316,11 @@ const dom = (() => {
     }
 
     const updateTask = function(projectArray, idNumber) {
-     
-        //Get list item
-        let item = document.getElementById('listItem' + idNumber);
-        item.innerHTML = '';
+        //Create list item
+        //let item = document.getElementById('listItem' + idNumber);
+        let newTaskDiv = document.createElement("div");
+        newTaskDiv.id = 'listItem' + idNumber;
+        newTaskDiv.className = 'listItems';
 
         //Get updated values
         let title = projectArray[idNumber]['title'];
@@ -325,17 +329,44 @@ const dom = (() => {
         let priority = projectArray[idNumber]['priority'];
 
         //Create elements
-        let titleElem = document.createTextNode(title);
-        let descElem = document.createTextNode(description);
-        let dateElem = document.createTextNode(dueDate);
-        let priElem = document.createTextNode(priority);
+        let titleElem = document.createElement('div');
+        titleElem.innerHTML = title;
+        titleElem.id = 'taskTitle' + idNumber;
+        titleElem.className = 'itemTitles';
+
+        let dateElem = document.createElement('div');
+        dateElem.innerHTML = dueDate;
+        dateElem.id = 'taskDate' + idNumber;
+        dateElem.className = 'itemDates';
+
+        let deleteTask = document.createElement('button');
+        deleteTask.innerHTML = 'Delete';
+        deleteTask.id = 'deleteTask' + idNumber;
+        deleteTask.className = 'buttons';
+     
+        let expandTask = document.createElement('button');
+        expandTask.innerHTML = 'Expand task';
+        expandTask.id = 'expandTask' + idNumber;
+        expandTask.className = 'buttons';
+
+        newTaskDiv.appendChild(titleElem);
+        newTaskDiv.appendChild(dateElem);
+        newTaskDiv.appendChild(deleteTask);
+        newTaskDiv.appendChild(expandTask);
+
+        let expandedTask = document.getElementById('expandedItem');
+        expandedTask.before(newTaskDiv);
+        expandedTask.remove();
 
 
+
+        /*
         //Append new values
         item.appendChild(titleElem);
         item.appendChild(descElem);
         item.appendChild(dateElem);
         item.appendChild(priElem);
+        */
 
         //This makes the div red if labeled, "urgent"
         if (priority === 'Urgent') {
@@ -388,11 +419,14 @@ const dom = (() => {
                     newTaskDiv.id = 'listItem' + i;
                     newTaskDiv.className = 'listItems';
 
-                    let titleElem = document.createTextNode(title);
-                    //Text nodes don't have id's or classnames...
+                    let titleElem = document.createElement('div');
+                    titleElem.innerHTML = title;
+                    titleElem.id = 'taskTitle' + i;
                     titleElem.className = 'itemTitles';
 
-                    let dateElem = document.createTextNode(dueDate);
+                    let dateElem = document.createElement('div');
+                    dateElem.innerHTML = dueDate;
+                    dateElem.id = 'taskDate' + i;
                     dateElem.className = 'itemDates';
 
                     let deleteTask = document.createElement('button');
@@ -400,10 +434,18 @@ const dom = (() => {
                     deleteTask.id = 'deleteTask' + i;
                     deleteTask.className = 'buttons';
 
+                    //Add expand button here
+                    let expandTask = document.createElement('button');
+                    expandTask.innerHTML = 'Expand task';
+                    expandTask.id = 'expandTask' + i;
+                    expandTask.className = 'buttons';
+
+
                     //append everything else to task here
                     newTaskDiv.appendChild(titleElem);
                     newTaskDiv.appendChild(dateElem);
                     newTaskDiv.appendChild(deleteTask);
+                    newTaskDiv.appendChild(expandTask);
 
                     container.appendChild(newTaskDiv);
 
@@ -543,6 +585,27 @@ const dom = (() => {
     const expandListItem = function(projectArray, targetIdNumber) {
         let container = document.getElementById('content');
 
+        let existingExpandedItem = document.getElementById('expandedItem');
+
+        if (existingExpandedItem) {
+            //Problem is, this removes original task and doesn't
+            //put it back. reload whole list?
+
+            //Get projectName of task
+            let projectName = projectArray[targetIdNumber]['projectName'];
+            //Clear tasks
+            dom.clearTasks();
+            //Remove expanded item
+            existingExpandedItem.remove();
+            //Load tasks
+            dom.loadProjectTasks(projectArray, projectName);
+            console.log('closing it');
+        } else {
+            //This is blank
+            console.log('already expanded');
+        }
+        
+
         let expandedItem = document.createElement('div');
         expandedItem.id = 'expandedItem';
         //expandedItem.className = 'expandedItem';
@@ -559,13 +622,17 @@ const dom = (() => {
         let priority = projectArray[targetIdNumber]['priority'];
 
         //Create text nodes
-        let titleElem = document.createTextNode(title);
+        let titleElem = document.createElement('div');
+        titleElem.innerHTML = title;
         titleElem.id = 'expandedTitle';
-        let descElem = document.createTextNode(description);
+        let descElem = document.createElement('div');
+        descElem.innerHTML = description;
         descElem.id = 'expandedDescription';
-        let dateElem = document.createTextNode(dueDate);
+        let dateElem = document.createElement('div');
+        dateElem.innerHTML = dueDate;
         dateElem.id = 'expandedDate';
-        let priElem = document.createTextNode(priority);
+        let priElem = document.createElement('div');
+        priElem.innerHTML = priority;
         priElem.id = 'expandedPriority';
 
         //Create Edit Button
@@ -576,6 +643,22 @@ const dom = (() => {
         editButton.className = 'buttons';
 
         //Also close it when clicking away from it?
+        let miniButton = document.createElement('button');
+        miniButton.innerHTML = 'Minimize';
+        miniButton.id = 'miniButton' + targetIdNumber;
+        miniButton.className = 'buttons';
+
+         //This makes the div red if labeled, "urgent"
+         if (priority === 'Urgent') {
+            console.log('make it red');
+            expandedItem.style['background-color'] = 'red';
+        } else {
+            //Nothing
+        }
+
+        //Remove original task object
+        //This is done on button click
+        //dom.deleteTask(targetIdNumber);
 
         //Append elements
         expandedItem.appendChild(titleElem);
@@ -583,8 +666,12 @@ const dom = (() => {
         expandedItem.appendChild(dateElem);
         expandedItem.appendChild(priElem);
         expandedItem.appendChild(editButton);
+        expandedItem.appendChild(miniButton);
 
-        container.appendChild(expandedItem);
+        //Always append after original task item
+        let originalItem = document.getElementById('listItem' + targetIdNumber);
+        originalItem.after(expandedItem);
+        //container.appendChild(expandedItem);
         
     }
 
