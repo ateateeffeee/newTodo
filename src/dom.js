@@ -356,7 +356,7 @@ const dom = (() => {
 
         let expandedTask = document.getElementById('expandedItem');
         expandedTask.before(newTaskDiv);
-        expandedTask.remove();
+        //expandedTask.remove();
 
 
 
@@ -371,9 +371,9 @@ const dom = (() => {
         //This makes the div red if labeled, "urgent"
         if (priority === 'Urgent') {
             console.log('make it red');
-            item.style['background-color'] = 'red';
+            newTaskDiv.style['background-color'] = 'red';
         } else {
-            item.style['background-color'] = '';
+            newTaskDiv.style['background-color'] = '';
         }
     }
 
@@ -467,6 +467,34 @@ const dom = (() => {
 
         //test this with "default" first. It's under statis listeners
 
+    }
+
+    const loadProjectButtons = function(projectName) {
+        //This counts the projects using the class name
+        let projCounter = document.getElementsByClassName('projectNames');
+        //console.log(projCounter.length);
+
+        let addNewProjectButton = document.getElementById('addNewProject');
+        
+        let newProject = document.createElement("button");
+        newProject.innerHTML = projectName;
+        //newProject.id = 'projectButton' + projCounter.length;
+        newProject.className = 'projectNames';
+
+        for (let i = 1; i < projCounter.length + 1; i++) {
+            let currentButton = document.getElementById('projectButton' + i);
+            console.log('Current button: ' + currentButton + "i: " + i);
+
+            if (!currentButton) {
+                console.log('current button doesnt exist');
+                newProject.id = 'projectButton' + i;
+                break;
+            } else {
+                newProject.id = 'projectButton' + projCounter.length;
+            }
+        }
+
+        addNewProjectButton.before(newProject);
     }
 
     const createProjectsContainer = function() {
@@ -745,6 +773,7 @@ const dom = (() => {
         deleteTask,
         clearTasks,
         loadProjectTasks,
+        loadProjectButtons,
         createProjectList,
         outlineSelectedProj,
         outlineNewProj,

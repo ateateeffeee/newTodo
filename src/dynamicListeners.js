@@ -23,6 +23,7 @@ const dynamicListeners = (() => {
                 todoList.getUserInput();
                 dom.removeNewTaskDiv();
                 
+                //Save to localStorage
                 let index = projectArray.length - 1;
                 storage.saveData(projectArray, index);
                 
@@ -76,6 +77,9 @@ const dynamicListeners = (() => {
                             if (projectButton.style['border-style'] === 'solid') {
                                 //delete tasks from projectArray
                                 todoList.deleteProjectTasks(projectButton.innerHTML);
+                                //delete tasks from localStorage
+                                storage.deleteByProjectName(projectArray, projectButton.innerHTML);
+                                //console.log(localStorage.getItem('title2'));
                                 break;
                 
                             } else {
@@ -157,6 +161,9 @@ const dynamicListeners = (() => {
                 //Delete task from dom
                 dom.deleteTask(targetIdNumber);
 
+                //Delete task form localStorage
+                storage.deleteTask(targetIdNumber);
+
                 //Display new array just to be sure
                 let projectArray = todoList.giveArray();
                 console.log(projectArray);
@@ -193,17 +200,16 @@ const dynamicListeners = (() => {
 
                 //send title, description, date, priority, and index
                 todoList.updateArray(title, description, dueDate, priority, targetIdNumber);
-
+                
                 //call function that updates dom list element
                 dom.updateTask(projectArray, targetIdNumber);
+
+                //update localStorage
+                storage.saveData(projectArray, targetIdNumber);
 
                 //Remove expanded list item
                 let expandedItem = document.getElementById('expandedItem');
                 expandedItem.remove();
-                /*
-                let expandedItem = document.getElementById('expandedItem');
-                expandedItem.remove();
-                */
             }
 
             if (targetId === 'closeExpandedItem') {

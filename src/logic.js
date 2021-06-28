@@ -1,5 +1,6 @@
 //Loads external modules
 const dom = require('./dom.js');
+const storage = require('./storage.js');
 
 
 //dynamicListeners loads in index. Which means that when loading in
@@ -20,6 +21,13 @@ function todoItem(title, description, dueDate, priority, projectName) {
 }
 
 localStorage.clear();
+//console.log(localStorage.length);
+//TEST localStorageData
+localStorage.setItem('title0', 'Get rich');
+localStorage.setItem('description0', 'Acquire lotta money');
+localStorage.setItem('dueDate0', '11.12.22');
+localStorage.setItem('priority0', 'Urgent');
+localStorage.setItem('projectName0', 'Poop');
 
 //test item
 const testItem = new todoItem('Samurai Black', 'Become black',
@@ -35,11 +43,44 @@ const todoList = (() => {
         //this.test();
         //this.createDefaultProject();
         //this.getUserInput();
+        this.importData();
         dom.createProjectList(projectArray);
     }
 
-    const test = function() {
-        console.log("this is a test function");
+    const importData = function(){
+        if (localStorage) {
+            for (let i = 0; i <= ((localStorage.length / 5) - 1); i++ ){
+                //this needs access to the object creator.
+                //it needs to parse through and stick variables into
+                //creator
+    
+                //take out loop. make it load data once and return title, desc, etc
+                
+                let savedData = storage.loadData(i);
+                console.log(savedData[0]);
+                //create a new object w/ createNewItem function
+                todoList.createNewItem(savedData[0], savedData[1], savedData[2], savedData[3], savedData[4]);
+
+                console.log(projectArray);
+
+                //load task to dom
+                //ALREADY DOES IT? Because it's in createNewItem function
+                //keep it for now, idc
+                //this loads projectName tabs/buttons
+                if (savedData[4] !== 'Default' ) {
+                    dom.loadProjectButtons(savedData[4]);
+                } else {
+                    //nothing happens
+                }
+                //START HERE TOMORROW
+                //Outline default task
+                //Maybe triggering function and inputting 'default'
+                //will be enough i dunno i gott go ta bed
+
+            }
+        } else {
+            //nothing happens
+        }
     }
 
     const createNewItem = function(title, description, dueDate,
@@ -49,10 +90,9 @@ const todoList = (() => {
 
         console.log(newItem);
 
-        //TEST PUSH TO PROJECT ARRAY
+        //Pushes object to array
         projectArray.push(newItem);
-        console.log(projectArray);
-        //console.log(projectArray[0]['projectName']);
+
 
         //Creates object element
         dom.addNewTask(projectArray);
@@ -168,7 +208,7 @@ const todoList = (() => {
 
     return {
         init,
-        test,
+        importData,
         createNewItem,
         getUserInput,
         giveArray,

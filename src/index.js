@@ -45,8 +45,9 @@ dynamicListeners.init();
 
     THIS IS REALLY EASY
 
-    - save data with localStorage
-        - load data on startup
+    - load data on start-up
+        - make outline stay on default
+        - currently shows all projects regardless of name
 
     - use date-fns library for date
 
@@ -88,6 +89,10 @@ dynamicListeners.init();
 
 
     BUGS
+
+    - red color goes away when editing and saving again. update task missing
+    red if?
+
     - deleting projects out of order can generate the same id for two
         -recreate by making two new projs, deleting first, then making
         another FIXED
