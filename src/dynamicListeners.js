@@ -212,7 +212,17 @@ const dynamicListeners = (() => {
                 expandedItem.remove();
             }
 
-            if (targetId === 'closeExpandedItem') {
+            if (targetId.includes('closeExpandedItem')) {
+                //Get array from logic.js
+                let projectArray = todoList.giveArray();
+
+                //Clear tasks to make reorder cleaner
+                dom.clearTasks();
+                //Reload projects
+                //dom.loadProjectTasks(projectArray, 'Default');
+                dom.updateTask(projectArray, targetIdNumber);
+
+                //Remove expanded list item
                 let expandedItem = document.getElementById('expandedItem');
                 expandedItem.remove();
             }

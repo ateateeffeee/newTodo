@@ -742,7 +742,7 @@ const dom = (() => {
         //Close button
         let closeButton = document.createElement('button');
         closeButton.innerHTML = 'Close';
-        closeButton.id = 'closeExpandedItem';
+        closeButton.id = 'closeExpandedItem' + targetIdNumber;
         closeButton.className = 'buttons';
 
         console.log('THIS IS THE VALUE: ' + projectArray[targetIdNumber]['title']);

@@ -40,8 +40,7 @@ dynamicListeners.init();
     - SOLVED: put all logic into new "logic.js" module
 
     Features to add:
-    - save/load tasks
-    - save/load project tabs
+    - date fn just try it
 
     THIS IS REALLY EASY
 
@@ -52,6 +51,7 @@ dynamicListeners.init();
     - use date-fns library for date
 
     DONE LIST
+    - localStorage
     - add edit button to expanded items div DONE
         - add edit functionality DONE
         - make value of input boxes the same as current value DONE

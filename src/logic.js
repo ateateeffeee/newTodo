@@ -20,14 +20,16 @@ function todoItem(title, description, dueDate, priority, projectName) {
     return todoItem;
 }
 
-localStorage.clear();
+//localStorage.clear();
 //console.log(localStorage.length);
-//TEST localStorageData
+//TEST localStorageData with this
+/*
 localStorage.setItem('title0', 'Get rich');
 localStorage.setItem('description0', 'Acquire lotta money');
 localStorage.setItem('dueDate0', '11.12.22');
 localStorage.setItem('priority0', 'Urgent');
 localStorage.setItem('projectName0', 'Poop');
+*/
 
 //test item
 const testItem = new todoItem('Samurai Black', 'Become black',
@@ -72,10 +74,13 @@ const todoList = (() => {
                 } else {
                     //nothing happens
                 }
-                //START HERE TOMORROW
                 //Outline default task
-                //Maybe triggering function and inputting 'default'
-                //will be enough i dunno i gott go ta bed
+                dom.outlineSelectedProj('defaultButton');
+                //Clear created tasks since only "Default" is selected
+                dom.clearTasks();
+                //Load default projects
+                dom.loadProjectTasks(projectArray, 'Default');
+
 
             }
         } else {
