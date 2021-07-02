@@ -28,13 +28,8 @@ localStorage.setItem('title0', 'Get rich');
 localStorage.setItem('description0', 'Acquire lotta money');
 localStorage.setItem('dueDate0', '11.12.22');
 localStorage.setItem('priority0', 'Urgent');
-localStorage.setItem('projectName0', 'Poop');
+localStorage.setItem('projectName0', 'Test');
 */
-
-//test item
-const testItem = new todoItem('Samurai Black', 'Become black',
- 'tomorrow', 'very important', 'Cool Things');
-//console.log(testItem.dueDate);
 
 //Global project array. (This holds all projects)
 const projectArray = [];
@@ -42,9 +37,6 @@ const projectArray = [];
 //Main To-do list module
 const todoList = (() => {
     const init = function() {
-        //this.test();
-        //this.createDefaultProject();
-        //this.getUserInput();
         this.importData();
         dom.createProjectList(projectArray);
     }
@@ -106,13 +98,6 @@ const todoList = (() => {
     }
 
     const getUserInput = function() {
-        //make these equal a text box when dom is set up
-        //let title = "Get a gf";
-        //let description = "Talk to a girl";
-        //let dueDate = "Tomorrow";
-        //let priority = "Urgent";
-        //let projectName = "MINDSET";
-
         //when these run, there isn't a value yet...?
 
         
@@ -220,11 +205,6 @@ const todoList = (() => {
         updateArray,
         deleteArrayIndex,
         deleteProjectTasks,
-        //createDefaultProject,
-        // createNewProject,
-        // start here tomorrow
-            //make each project an array to store to-do's in?
-
     }
 })();
 
